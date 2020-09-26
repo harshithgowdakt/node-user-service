@@ -1,0 +1,23 @@
+{
+  "serviceName": "node-user-service",
+  "version": "1.0.0",
+  "mongodb": {
+    "ipAddress": "localhost",
+    "port": "27017",
+    "dbName": "harshith"
+  },
+  "sequelizeOptions": {
+    "host": "localhost",
+    "port": 3306,
+    "logging": false
+  },
+  "mysql": {
+    "user": "root",
+    "password": "root",
+    "database": "node_user_service"
+  },
+  "logger": {
+    "name": "winston",
+    "logLevel": "debug"
+  }
+}
