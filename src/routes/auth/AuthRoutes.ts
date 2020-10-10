@@ -12,7 +12,9 @@ export class AuthRoutes implements IRoutes {
   }
 
   public intializeRoutes() {
-    this.router.post('/auth/login', this.authController.login);
+    this.router.post('/auth/login', (req, res, next) => {
+      this.authController.login(req, res, next);
+    });
   }
 }
 

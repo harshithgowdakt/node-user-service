@@ -1,18 +1,17 @@
 import { config } from "dotenv";
 import { normalize } from "path";
-import { logger } from "./config/winston/Logger";
 
-const result = config({ path: `${normalize(`${__dirname}/../.env`)}` })
-process.env.ROOT_DIR = normalize(`${__dirname}/../`);
+const result = config({ path: `${normalize(`${__dirname}/../.env`)}` });
+process.env.ROOT_DIR = normalize(`${__dirname}`);
 if (result.error) {
-  logger.error(result.error);
   process.exit(1);
 }
 
+import { logger } from "./config/winston/Logger";
 import morgan from "morgan";
 import express, { Application } from "express";
 import { depedencies } from "./depedencies/Depedencies";
-import { SequelizeOrm } from "./db/config/SequilzeOrm";
+import { SequelizeOrm } from "./db/config/SequlizeOrm";
 import { IRoutes } from "./routes/models/IRoutes";
 import { jwtInstance } from "./config/jwt/Jwt";
 
@@ -35,7 +34,7 @@ class Server {
   private configuration() {
     this.app.use(express.json());
     this.app.use(morgan('dev'));
-    this.app.use(jwtInstance.verifyToken().unless({ path: '/login' }))
+    this.app.use(jwtInstance.verifyToken)
   }
 
   private initializeRoutes() {
@@ -47,8 +46,7 @@ class Server {
 
   private async initializeDb() {
     await this.sequalizeOrm.testDbConnection();
-    await this.sequalizeOrm.synchrozieSequelizeModels();
-    // dbLayer.getConnection();
+    await this.sequalizeOrm.synchrozeModels();
   }
 
   private onListening = () => {
@@ -67,7 +65,7 @@ class Server {
 }
 
 const port = process.env.PORT || 8080;
-const server = new Server(new SequelizeOrm(), depedencies, port);
+const server = new Server(SequelizeOrm.Instance, depedencies, port);
 
 server.listen();
 

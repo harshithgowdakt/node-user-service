@@ -1,27 +1,26 @@
 import { Sequelize, Dialect, DataTypes, Model, ModelCtor } from 'sequelize';
 import fs from 'fs';
-import { normalize, join } from 'path';
+import { join } from 'path';
 import _ from 'lodash';
 import * as config from "../../config/config.json";
 import { logger } from '../../config/winston/Logger';
+import { IOrm } from '../models/IOrm';
 
-export class SequelizeOrm {
-  private instance: any = {};
+export class SequelizeOrm implements IOrm {
+  private static _instance: SequelizeOrm;
   private sequelize: Sequelize;
   private sequelizeOptions: any;
-  private readonly rootDir: string;
   private readonly modelsDir: string;
   private db: any = {};
 
-  constructor() {
-    this.rootDir = normalize(`${__dirname}/../../`);
-    this.modelsDir = `${this.rootDir}/db/config/models`;
+  private constructor() {
+    this.modelsDir = `${process.env.ROOT_DIR}/${config.sequelizeOrm.modelsDir}`;
     this.sequelizeOptions = config.sequelizeOptions;
-    this.sequelize = this.intializeSequelize();
-    this.intializeSequelizeModel();
+    this.sequelize = this.intializeOrm();
+    this.intializeModels();
   }
 
-  private intializeSequelize() {
+  private intializeOrm() {
     let dialect = "mysql" as Dialect;
     this.sequelizeOptions.dialect = dialect;
     return new Sequelize(
@@ -32,7 +31,7 @@ export class SequelizeOrm {
     );
   }
 
-  private intializeSequelizeModel() {
+  private intializeModels() {
     fs.readdirSync(this.modelsDir)
       .filter((file) => (file.indexOf('.') !== 0) && (file.indexOf('.map') === -1))
       .forEach((file) => {
@@ -40,6 +39,16 @@ export class SequelizeOrm {
         const model = require(join(this.modelsDir, file))(this.sequelize, DataTypes);
         this.db[model.name] = model;
       });
+  }
+
+  async synchrozeModels() {
+    try {
+      await this.sequelize.sync();
+      logger.info('Database synchronized');
+    } catch (error) {
+      logger.error('Error while synchronizing models', error);
+      throw error;
+    }
   }
 
   async testDbConnection() {
@@ -52,23 +61,17 @@ export class SequelizeOrm {
     }
   }
 
-  async synchrozieSequelizeModels() {
-    try {
-      await this.sequelize.sync();
-      logger.info('Database synchronized');
-    } catch (error) {
-      logger.error('Error while synchronizing models', error);
-      throw error;
-    }
+  getOrmInstance() {
+    return _.extend({
+      sequelize: this.sequelize,
+      Sequelize: Sequelize,
+    }, this.db);
   }
 
-  dbInstance() {
-    let sequelize = this.sequelize;
-    let db = this.db;
-    this.instance = _.extend({
-      sequelize: sequelize,
-      Sequelize: Sequelize,
-    }, db);
-    return this.instance;
+  static get Instance(): SequelizeOrm {
+    if (!this._instance) {
+      this._instance = new SequelizeOrm();
+    }
+    return this._instance;
   }
-} 
+}

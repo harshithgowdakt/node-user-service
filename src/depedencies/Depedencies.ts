@@ -1,4 +1,4 @@
-import { SequelizeOrm } from "../db/config/SequilzeOrm";
+import { SequelizeOrm } from "../db/config/SequlizeOrm";
 import { AuthRoutes } from '../routes/auth/AuthRoutes'
 import { UserRoutes } from "../routes/user/UserRoutes"
 import { UserController } from "../routes/user/UserController"
@@ -7,7 +7,7 @@ import { UserRepository } from "../db/repositories/UserRepository"
 
 let userRepository =
   new UserRepository(
-    new SequelizeOrm()
+    SequelizeOrm.Instance
   );
 
 let userController =

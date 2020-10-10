@@ -1,12 +1,13 @@
-import { SequelizeOrm } from "../config/SequilzeOrm";
+import { SequelizeOrm } from "../config/SequlizeOrm";
 import { IUser } from "./models/IUsers";
 import { IUserRepository } from "./models/IUserRepository";
+import { IOrm } from "../models/IOrm";
 
 export class UserRepository implements IUserRepository {
   private dbInstance: any;
 
-  constructor(sequelizeOrm: SequelizeOrm) {
-    this.dbInstance = sequelizeOrm.dbInstance();
+  constructor(orm: IOrm) {
+    this.dbInstance = orm.getOrmInstance();
   }
 
   async getUserByEmail(email: string) {

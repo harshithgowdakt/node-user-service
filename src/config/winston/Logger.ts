@@ -5,34 +5,24 @@ class Logger {
   private logger: winston.Logger;
   private transports: winston.transport | winston.transport[];
   private format: winston.Logform.Format;
-  private readonly rootDir: string;
   private static instance: Logger;
 
   constructor() {
-    this.rootDir = this.initializeRootDir();
     this.transports = this.initializeTransport();
     this.format = this.initializeFormat();
     this.logger = this.initializeLogger();
-  }
-
-  private initializeRootDir() {
-    if (process.env.ROOT_DIR) {
-      return process.env.ROOT_DIR;
-    } else {
-      return normalize(`${__dirname}/../../../`);
-    }
   }
 
   private initializeTransport() {
     return [
       new transports.File({
         filename: 'error.log',
-        dirname: `${this.rootDir}/logs`,
+        dirname: `${process.env.ROOT_DIR}/../logs`,
         level: 'error'
       }),
       new transports.File({
         filename: 'out.log',
-        dirname: `${this.rootDir}/logs`,
+        dirname: `${process.env.ROOT_DIR}/../logs`,
       })
     ]
   }

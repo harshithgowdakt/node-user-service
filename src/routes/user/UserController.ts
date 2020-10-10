@@ -1,13 +1,13 @@
 import bcrypt from 'bcrypt';
 import { Request, Response, NextFunction } from 'express';
 import { validation } from "../../validation/Validation";
-import { UserRepository } from "../../db/repositories/UserRepository";
+import { IUserRepository } from "../../db/repositories/models/IUserRepository";
 import { IUserController } from './models/IUserController';
 
 export class UserController implements IUserController {
-  private userRepository: UserRepository;
+  private userRepository: IUserRepository;
 
-  constructor(userRepository: UserRepository) {
+  constructor(userRepository: IUserRepository) {
     this.userRepository = userRepository;
   }
 

@@ -1,6 +1,7 @@
-import { sign } from "jsonwebtoken";
-import jwt from "express-jwt";
+import { sign, verify } from "jsonwebtoken";
+import { Request, Response, NextFunction } from "express";
 import { IUser } from "../../db/repositories/models/IUsers";
+import * as config from "../config.json";
 
 class Jwt {
 
@@ -13,11 +14,24 @@ class Jwt {
       isAdmin: user.isAdmin,
       isBlocked: user.isBlocked
     }
-    return sign(payload, "1234", { expiresIn: "1d", });
+    return sign(payload, "1234", { expiresIn: "1d" });
   }
 
-  verifyToken() {
-    return jwt({ secret: "1234" });
+  verifyToken(req: Request, res: Response, next: NextFunction) {
+    if (!config.excludeAuth.includes(req.path)) {
+      if (req.header("authorization")) {
+        try {
+          let token = req.header("authorization") as string;
+          verify(token, "1234");
+          next();
+        } catch (error) {
+          res.status(400).send(error.message);
+        }
+      } else {
+        res.status(401).send();
+      }
+    }
+    next()
   }
 
   static get Instnce(): Jwt {

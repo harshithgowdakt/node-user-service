@@ -7,9 +7,13 @@
     "dbName": "harshith"
   },
   "sequelizeOptions": {
+    "dialect": "mysql",
     "host": "localhost",
     "port": 3306,
     "logging": false
+  },
+  "sequelizeOrm": {
+    "modelsDir": "db/config/models"
   },
   "mysql": {
     "user": "root",
@@ -19,5 +23,9 @@
   "logger": {
     "name": "winston",
     "logLevel": "debug"
-  }
+  },
+  "excludeAuth": [
+    "/auth/login",
+    "/users"
+  ]
 }
