@@ -3,19 +3,25 @@ import { Request, Response, NextFunction } from 'express';
 import { validation } from "../../validation/Validation";
 import { IUserRepository } from "../../db/repositories/models/IUserRepository";
 import { IUserController } from './models/IUserController';
+import { IUser } from '../../db/repositories/models/IUsers';
+import { IUserHelper } from './models/IUserHelper';
 
 export class UserController implements IUserController {
   private userRepository: IUserRepository;
+  private userHelper: IUserHelper;
 
-  constructor(userRepository: IUserRepository) {
+  constructor(userRepository: IUserRepository, userHelper: IUserHelper) {
     this.userRepository = userRepository;
+    this.userHelper = userHelper;
   }
 
   async getUserByEmailId(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await this.userRepository.getUserByEmail(req.params.id);
-      if (user == null) return res.status(400).send('User not regestered');
-      res.status(200).send(user);
+      let user: IUser = await this.userRepository.getUserByEmail(req.params.id);
+      if (user == null) {
+        return res.status(400).send('User not regestered');
+      }
+      res.status(200).send(this.userHelper.filterUserInfo(user));
     } catch (error) {
       console.log(error);
       next();
@@ -48,7 +54,7 @@ export class UserController implements IUserController {
       userReq.password = hashedPassword;
       let user = await this.userRepository.createUser(userReq);
 
-      res.status(200).send(user);
+      res.status(200).send(this.userHelper.filterUserInfo(user));
 
     } catch (error) {
       next();

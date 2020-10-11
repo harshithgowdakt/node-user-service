@@ -34,7 +34,8 @@ class Server {
   private configuration() {
     this.app.use(express.json());
     this.app.use(morgan('dev'));
-    this.app.use(jwtInstance.verifyToken)
+    this.app.use(jwtInstance.verifyToken);
+    this.app.use(jwtInstance.verifyAdminToken);
   }
 
   private initializeRoutes() {

@@ -25,10 +25,31 @@ class Jwt {
           verify(token, config.jwt.secreteKey);
           next();
         } catch (error) {
-          res.status(400).send(error.message);
+          return res.status(400).send(error.message);
         }
       } else {
-        res.status(401).send();
+        return res.status(401).send();
+      }
+    }
+    next()
+  }
+
+
+  verifyAdminToken(req: Request, res: Response, next: NextFunction) {
+    if (config.adminApis.includes(req.path)) {
+      if (req.header("authorization")) {
+        try {
+          let token = req.header("authorization") as string;
+          let user = verify(token, config.jwt.secreteKey) as IUser;
+          if (!user.isAdmin) {
+            return res.status(401).send();
+          }
+          next();
+        } catch (error) {
+          return res.status(400).send(error.message);
+        }
+      } else {
+        return res.status(401).send();
       }
     }
     next()

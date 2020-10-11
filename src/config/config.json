@@ -18,14 +18,16 @@
   "mysql": {
     "user": "root",
     "password": "root",
-    "database": "node_user_service"
+    "database": "user_service"
   },
   "logger": {
     "name": "winston",
     "logLevel": "debug"
   },
   "excludeAuth": [
-    "/auth/login",
+    "/auth/login"
+  ],
+  "adminApis": [
     "/users"
   ],
   "jwt": {

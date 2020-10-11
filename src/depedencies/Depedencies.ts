@@ -4,6 +4,7 @@ import { UserRoutes } from "../routes/user/UserRoutes"
 import { UserController } from "../routes/user/UserController"
 import { AuthController } from "../routes/auth/AuthController";
 import { UserRepository } from "../db/repositories/UserRepository"
+import { UserHelper } from "../routes/user/UserHelper";
 
 let userRepository =
   new UserRepository(
@@ -12,7 +13,8 @@ let userRepository =
 
 let userController =
   new UserController(
-    userRepository
+    userRepository,
+    new UserHelper()
   );
 
 let authController =
