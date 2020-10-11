@@ -27,5 +27,8 @@
   "excludeAuth": [
     "/auth/login",
     "/users"
-  ]
+  ],
+  "jwt": {
+    "secreteKey": "1234"
+  }
 }

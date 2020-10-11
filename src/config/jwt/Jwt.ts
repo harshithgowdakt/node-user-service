@@ -14,7 +14,7 @@ class Jwt {
       isAdmin: user.isAdmin,
       isBlocked: user.isBlocked
     }
-    return sign(payload, "1234", { expiresIn: "1d" });
+    return sign(payload, config.jwt.secreteKey, { expiresIn: "1d" });
   }
 
   verifyToken(req: Request, res: Response, next: NextFunction) {
@@ -22,7 +22,7 @@ class Jwt {
       if (req.header("authorization")) {
         try {
           let token = req.header("authorization") as string;
-          verify(token, "1234");
+          verify(token, config.jwt.secreteKey);
           next();
         } catch (error) {
           res.status(400).send(error.message);
