@@ -60,7 +60,7 @@ class Server {
         this.app.listen(this.port, this.onListening);
       })
       .catch((error) => {
-        console.log(error);
+        logger.error(`Error while starting the service ${error}`);
       });
   }
 }
