@@ -92,9 +92,9 @@ The folder structure of this app is explained below:
 
 
 # APIs
-
-| METHOD  | URI                           | Description                     |
-| --------| ----------------------------------------------------------------|
+### Usage
+| Method  | URI                           |                                 |
+|---------|-------------------------------|---------------------------------|
 |  POST   | /internal/api/v1/users        | create a user                   |
 |  GET    | /internal/api/v1/users/:id    | returns user details by emailid |
 |  GET    | /internal/api/v1/users        | returns all the users           |
