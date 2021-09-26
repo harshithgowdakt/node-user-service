@@ -15,6 +15,8 @@ A service to manage the users.
 
   * [Project Structure](#Project-Structure)
 
+  * [APIs](#APIs)
+
 # Quick-Start:
 
 1. Run `npm run setup` to install depedencies.
@@ -87,3 +89,15 @@ The folder structure of this app is explained below:
 | Dockerfile                | File to build the docker image |
 | tsconfig.json             | Config settings for compiling source code only written in TypeScript |
 | tslint.json               | Config settings for TSLint code style checking |
+
+
+# APIs
+
+| *METHOD*| URI                           | Description
+| --------| ----------------------------------------------------------------|
+|  POST   | /internal/api/v1/users        | create a user |
+|  GET    | /internal/api/v1/users/:id    | returns user details by emailid |
+|  GET    | /internal/api/v1/users        | returns all the users |
+|  PUT    | /internal/api/v1/users/:id    | updates the user by emailid |
+|  DELETE | /internal/api/v1/users/:id    | delete the user by emialid  | 
+|  POST   | /api/v1/auth/login            | returns jwt token |

@@ -11,17 +11,17 @@ export class UserRoutes implements IRoutes {
   }
 
   public intializeRoutes() {
-    this.router.get('/users/:id', (req, res, next) => {
+    this.router.get('/internal/api/v1/users/:id', (req, res, next) => {
       this.userController.getUserByEmailId(req, res, next);
     });
-    this.router.post('/users', (req, res, next) => {
+    this.router.post('/internal/api/v1/users', (req, res, next) => {
       this.userController.createUser(req, res, next)
     });
-    this.router.put('/users/:id', (req, res, next) => {
+    this.router.put('/internal/api/v1/users/:id', (req, res, next) => {
       this.userController.updateUser(req, res, next)
     });
-    this.router.delete('/users/:id', (req, res, next) => {
+    this.router.delete('/internal/api/v1/users/:id', (req, res, next) => {
       this.userController.deleteUser(req, res, next)
-    })
+    });
   }
 }
