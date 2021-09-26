@@ -4,6 +4,7 @@
   "description": "node microservice",
   "main": "Server.js",
   "scripts": {
+    "start:nodemon:ts": "node node_modules/nodemon/bin/nodemon.js --exec node_modules/ts-node/dist/bin.js src/Server.ts",
     "start": "node dist/Server.js",
     "setup": "npm ci",
     "build": "gulp build",
@@ -41,6 +42,7 @@
     "gulp": "^4.0.2",
     "gulp-tslint": "^8.1.4",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "nodemon": "^2.0.13",
     "ts-node": "^8.6.2",
     "tslint": "^6.0.0",
     "typescript": "^3.7.5"

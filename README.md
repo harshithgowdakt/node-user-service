@@ -70,6 +70,11 @@ A service to manage the users.
 
 5. You can check the logs, restart, stop and delete the services using pm2 commands, check the commands in link mentioned in step  3.
 
+6. To start using nodemon, run below commad.
+  ```bash
+  $ npm run start:nodemon:ts
+  ```
+
 
 # Project Structure
 The folder structure of this app is explained below:
