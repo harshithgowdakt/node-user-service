@@ -93,11 +93,11 @@ The folder structure of this app is explained below:
 
 # APIs
 
-| METHOD  | URI                           | Description
+| METHOD  | URI                           | Description                     |
 | --------| ----------------------------------------------------------------|
-|  POST   | /internal/api/v1/users        | create a user |
+|  POST   | /internal/api/v1/users        | create a user                   |
 |  GET    | /internal/api/v1/users/:id    | returns user details by emailid |
-|  GET    | /internal/api/v1/users        | returns all the users |
-|  PUT    | /internal/api/v1/users/:id    | updates the user by emailid |
-|  DELETE | /internal/api/v1/users/:id    | delete the user by emialid  | 
-|  POST   | /api/v1/auth/login            | returns jwt token |
+|  GET    | /internal/api/v1/users        | returns all the users           |
+|  PUT    | /internal/api/v1/users/:id    | updates the user by emailid     |
+|  DELETE | /internal/api/v1/users/:id    | delete the user by emialid      | 
+|  POST   | /api/v1/auth/login            | returns jwt token               |
