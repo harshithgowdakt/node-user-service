@@ -2,13 +2,13 @@
   "apps": [
     {
       "name": "user-service",
-      "script": "./../dist/Server.js",
-      "merge_logs": false,
+      "script": "./dist/Server.js",
+      "merge_logs": true,
       "instances": 1,
       "log_date_format": "HH:mm Z  DD-MM-YYY",
-      "exec_mode": "cluster_mode",
-      "error_file": "./../logs/user-service-error.log",
-      "out_file": "./../logs/user-service-out.log"
+      "exec_mode": "fork",
+      "error_file": "./logs/user-service-error.log",
+      "out_file": "./logs/user-service-out.log"
     }
   ]
 }

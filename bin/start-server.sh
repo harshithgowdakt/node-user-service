@@ -2,4 +2,7 @@
 set -e
 set -x
 
-pm2 start pm2-app.json --only server
+BASEDIR=$(dirname "$0")"/../"
+cd "$BASEDIR"
+
+pm2 start bin/pm2-app.json
