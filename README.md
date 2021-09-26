@@ -21,7 +21,7 @@ A service to manage the users.
 
 2. Run `npm run build` to transpile ts files to js files.
 
-3. Run `npm start` to start main.
+3. Run `npm start` to start service.
 
 
 # Installation
@@ -61,10 +61,29 @@ A service to manage the users.
     ```
 3. We can also start service using pm2. If you don't know what is pm2, read about pm2 in this [link](https://pm2.keymetrics.io/).
 
-4. To start both service using pm2 run below command.
+4. To start service using pm2 run below command.
     ```bash
-    $ node bin/start.js
+    $ bash bin/start-server.sh
     ```
 
 5. You can check the logs, restart, stop and delete the services using pm2 commands, check the commands in link mentioned in step  3.
 
+
+# Project Structure
+The folder structure of this app is explained below:
+
+| Name | Description |
+| ------------------------  | --------------------------------------------------------------------------------------------- |
+| **.vscode**               | Contains debug files |
+| **node_modules**          | Contains all  npm dependencies |
+| **bin/**                  | Contains files to start and stop the service |
+| **dist/**                 | Contains transpiled code which can run |
+| **src/**                  | Contains source code|
+| **src/config**            | Contains config files|  
+| **src/db**                | Contains db related code|
+| **src/routes**            | Contains code related APIs exposed by this service|                   
+| **src/Server.ts**         | Starting point to this service | 
+| package.json              | Contains npm dependencies as well as |
+| Dockerfile                | File to build the docker image |
+| tsconfig.json             | Config settings for compiling source code only written in TypeScript |
+| tslint.json               | Config settings for TSLint code style checking |
